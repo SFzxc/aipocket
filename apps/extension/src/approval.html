@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Approve AI Wallet Access</title>
+    <link rel="stylesheet" href="./wallet-ui.css" />
+  </head>
+  <body>
+    <main class="approval-shell">
+      <header class="wallet-header">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">AI</div>
+          <div>
+            <h1 class="brand-title">AI Wallet</h1>
+            <p class="brand-copy">Connection request</p>
+          </div>
+        </div>
+        <span class="status-pill">Review</span>
+      </header>
+
+      <section class="wallet-card site-card">
+        <div>
+          <h2 class="card-title">Website wants AI access</h2>
+          <p class="card-subtitle">Approve only sites you trust.</p>
+        </div>
+        <p class="site-origin" id="origin"></p>
+        <p class="site-reason" id="reason"></p>
+        <div class="diagnostics-grid">
+          <p>Provider <span id="provider-name">-</span></p>
+          <p>Type <span id="provider-type">-</span></p>
+          <p>Limit <span id="request-limit">No limit</span></p>
+        </div>
+        <p class="trust-note">This site can use approved models through AI Wallet. It never receives your API key.</p>
+      </section>
+
+      <section class="wallet-card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Share model access</h2>
+            <p class="card-subtitle">This site can only use selected models. Your API key is never shared.</p>
+          </div>
+          <span class="model-count" id="model-count">0 selected / 0 available</span>
+        </div>
+        <div class="approval-provider-group" id="models"></div>
+      </section>
+
+      <div class="approval-actions">
+        <button class="button button-danger" id="reject" type="button">Reject</button>
+        <button class="button button-primary" id="approve" type="button">Approve access</button>
+      </div>
+      <p class="status-text" id="status" role="status"></p>
+
+      <section class="wallet-card">
+        <details class="diagnostics">
+          <summary>Diagnostics</summary>
+          <div class="diagnostics-grid">
+            <p>Status <span id="debug-status">loading</span></p>
+            <p>Request ID <span id="debug-request-id">-</span></p>
+            <p>Origin <span id="debug-origin">-</span></p>
+            <p>Models count <span id="debug-models-count">0</span></p>
+            <p>Last error <span id="debug-error">-</span></p>
+          </div>
+        </details>
+      </section>
+    </main>
+    <script type="module" src="./approval.ts"></script>
+  </body>
+</html>

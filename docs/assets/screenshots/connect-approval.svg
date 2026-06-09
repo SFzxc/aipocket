@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-label="AI Wallet approval mock screenshot">
+  <rect width="760" height="520" rx="28" fill="#f6f4ef"/>
+  <rect x="200" y="28" width="360" height="464" rx="24" fill="#fbfaf7" stroke="#ded8ce"/>
+  <text x="232" y="70" font-family="Inter, Arial" font-size="17" font-weight="850" fill="#24272a">AI Wallet</text>
+  <rect x="476" y="52" width="64" height="24" rx="12" fill="#fff0dc" stroke="#ffd6a6"/>
+  <text x="508" y="68" text-anchor="middle" font-family="Inter, Arial" font-size="11" font-weight="800" fill="#7a3d00">Review</text>
+  <rect x="224" y="96" width="312" height="146" rx="18" fill="#fff" stroke="#e4ded5"/>
+  <text x="244" y="128" font-family="Inter, Arial" font-size="18" font-weight="850" fill="#24272a">Website wants AI access</text>
+  <text x="244" y="152" font-family="Inter, Arial" font-size="13" font-weight="800" fill="#24272a">https://demo.localhost</text>
+  <text x="244" y="174" font-family="Inter, Arial" font-size="12" fill="#6f747b">Demo conversation needs AI response access</text>
+  <text x="244" y="204" font-family="Inter, Arial" font-size="11" fill="#6f747b">Provider</text><text x="528" y="204" text-anchor="end" font-family="Inter, Arial" font-size="11" font-weight="800" fill="#24272a">OpenAI-compatible</text>
+  <text x="244" y="224" font-family="Inter, Arial" font-size="11" fill="#6f747b">Limit</text><text x="528" y="224" text-anchor="end" font-family="Inter, Arial" font-size="11" font-weight="800" fill="#24272a">5 requests/session</text>
+  <rect x="224" y="258" width="312" height="170" rx="18" fill="#fff" stroke="#e4ded5"/>
+  <text x="244" y="290" font-family="Inter, Arial" font-size="16" font-weight="850" fill="#24272a">Share model access</text>
+  <rect x="244" y="310" width="268" height="38" rx="12" fill="#fbfaf7" stroke="#e4ded5"/>
+  <circle cx="264" cy="329" r="7" fill="#e2761b"/><text x="282" y="334" font-family="Inter, Arial" font-size="12" font-weight="800" fill="#24272a">gpt-5.5</text>
+  <rect x="244" y="358" width="268" height="38" rx="12" fill="#fbfaf7" stroke="#e4ded5"/>
+  <circle cx="264" cy="377" r="7" fill="#e2761b"/><text x="282" y="382" font-family="Inter, Arial" font-size="12" font-weight="800" fill="#24272a">gpt-4.1-mini</text>
+  <rect x="224" y="444" width="92" height="36" rx="12" fill="#fff0ef" stroke="#ffc7c2"/><text x="270" y="467" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="850" fill="#9b1c1c">Reject</text>
+  <rect x="324" y="444" width="212" height="36" rx="12" fill="#e2761b"/><text x="430" y="467" text-anchor="middle" font-family="Inter, Arial" font-size="12" font-weight="850" fill="#fff">Approve 2 models</text>
+</svg>

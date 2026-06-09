@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-label="AI Wallet extension home mock screenshot">
+  <rect width="760" height="520" rx="28" fill="#f6f4ef"/>
+  <rect x="220" y="34" width="320" height="452" rx="24" fill="#fbfaf7" stroke="#ded8ce"/>
+  <g transform="translate(244 58)">
+    <rect width="34" height="34" rx="12" fill="#f3e6d8" stroke="#e2d2c1"/>
+    <text x="17" y="22" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="800" fill="#2f2418">AI</text>
+    <text x="46" y="23" font-family="Inter, Arial" font-size="16" font-weight="800" fill="#24272a">AI Wallet</text>
+  </g>
+  <rect x="244" y="112" width="272" height="174" rx="20" fill="#fff" stroke="#e4ded5"/>
+  <text x="264" y="142" font-family="Inter, Arial" font-size="11" font-weight="800" fill="#7a756f">WALLET</text>
+  <text x="264" y="166" font-family="Inter, Arial" font-size="21" font-weight="850" fill="#24272a">AI Access Wallet</text>
+  <rect x="436" y="132" width="70" height="24" rx="12" fill="#e8f7ed"/>
+  <text x="471" y="148" text-anchor="middle" font-family="Inter, Arial" font-size="11" font-weight="800" fill="#15562f">Ready</text>
+  <text x="264" y="193" font-family="Inter, Arial" font-size="12" fill="#6f747b">Your API key stays inside this extension.</text>
+  <line x1="264" y1="214" x2="496" y2="214" stroke="#eee8df"/>
+  <text x="264" y="237" font-family="Inter, Arial" font-size="12" fill="#6f747b">Providers</text>
+  <text x="496" y="237" text-anchor="end" font-family="Inter, Arial" font-size="12" font-weight="800" fill="#24272a">3 providers</text>
+  <text x="264" y="260" font-family="Inter, Arial" font-size="12" fill="#6f747b">Models</text>
+  <text x="496" y="260" text-anchor="end" font-family="Inter, Arial" font-size="12" font-weight="800" fill="#24272a">48 available</text>
+  <text x="264" y="282" font-family="Inter, Arial" font-size="12" fill="#6f747b">Enabled providers</text>
+  <text x="496" y="282" text-anchor="end" font-family="Inter, Arial" font-size="12" font-weight="800" fill="#24272a">2 enabled</text>
+  <rect x="244" y="304" width="272" height="104" rx="18" fill="#fff" stroke="#e4ded5"/>
+  <text x="264" y="334" font-family="Inter, Arial" font-size="15" font-weight="850" fill="#24272a">Connected sites</text>
+  <rect x="264" y="352" width="232" height="44" rx="14" fill="#fbfaf7" stroke="#e4ded5"/>
+  <text x="276" y="376" font-family="Inter, Arial" font-size="12" font-weight="800" fill="#24272a">https://demo.localhost</text>
+  <rect x="438" y="362" width="48" height="24" rx="12" fill="#fff3f1" stroke="#ffd0cb"/>
+  <text x="462" y="378" text-anchor="middle" font-family="Inter, Arial" font-size="10" font-weight="800" fill="#a12a22">Revoke</text>
+</svg>

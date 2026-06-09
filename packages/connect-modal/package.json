@@ -1,0 +1,19 @@
+{
+  "name": "@ai-wallet/connect-modal",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit false --emitDeclarationOnly false",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ai-wallet/protocol": "0.0.0"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}

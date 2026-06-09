@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "AI Wallet MVP",
+  "version": "0.0.0",
+  "description": "Browser extension wallet for approved AI API access.",
+  "permissions": ["storage", "scripting", "tabs"],
+  "host_permissions": ["https://*/*", "http://localhost/*", "http://127.0.0.1/*"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inpageProvider.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

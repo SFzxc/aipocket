@@ -1,0 +1,17 @@
+{
+  "name": "@ai-wallet/extension",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build && cp public/manifest.json dist/manifest.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ai-wallet/protocol": "0.0.0"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "vite": "latest"
+  }
+}

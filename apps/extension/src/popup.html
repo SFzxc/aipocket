@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Wallet</title>
+    <link rel="stylesheet" href="./wallet-ui.css" />
+  </head>
+  <body>
+    <main class="wallet-shell wallet-shell-compact">
+      <section id="home-view" class="popup-view">
+        <header class="top-nav">
+          <div class="brand compact-brand">
+            <div class="brand-mark small-mark" aria-hidden="true">AI</div>
+            <h1 class="brand-title">AI Wallet</h1>
+          </div>
+          <div class="header-actions">
+            <button class="icon-button menu-button" id="open-settings" type="button" aria-label="Open settings">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+        </header>
+
+        <section class="wallet-home-card">
+          <div class="identity-header">
+            <div>
+              <p class="eyebrow">Wallet</p>
+              <h2 class="wallet-title">AI Access Wallet</h2>
+            </div>
+            <span class="status-badge" id="wallet-status">Setup required</span>
+          </div>
+          <p class="security-copy">Your API key stays inside this extension.</p>
+          <div class="wallet-rows">
+            <p>Providers <span id="provider-count">No providers</span></p>
+            <button class="wallet-row-button" id="open-models" type="button">
+              <span>Models</span>
+              <strong id="provider-model-count">None saved</strong>
+              <span aria-hidden="true">›</span>
+            </button>
+            <p>Enabled providers <span id="provider-host">Not configured</span></p>
+          </div>
+          <button class="button wallet-action" id="provider-action" type="button">Set up provider</button>
+        </section>
+
+        <section class="wallet-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Connected sites</h2>
+              <p class="section-subtitle"><span id="session-count">0</span> active</p>
+            </div>
+            <button class="text-button" id="refresh-sessions" type="button">Refresh</button>
+          </div>
+          <div class="connected-sites" id="sessions"></div>
+        </section>
+      </section>
+
+      <section id="settings-view" class="popup-view is-hidden">
+        <header class="top-nav settings-nav">
+          <button class="icon-button" id="back-home" type="button" aria-label="Back to wallet">←</button>
+          <h1 class="brand-title">Providers</h1>
+          <button class="pill-button" id="add-provider" type="button">Add</button>
+        </header>
+
+        <section class="wallet-section provider-management-section">
+          <div class="provider-summary-strip" id="provider-summary-strip">No providers yet</div>
+          <div class="provider-form-slot" id="provider-form-slot-top"></div>
+          <div class="provider-card-stack" id="providers-list"></div>
+        </section>
+
+        <section class="wallet-section settings-panel provider-form-panel is-hidden" id="provider-form-panel">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="provider-form-title">Add provider</h2>
+              <p class="section-subtitle">Choose provider type, validate, then save.</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <label class="field">
+              Provider type
+              <select class="input" id="provider-type">
+                <option value="openai-compatible">OpenAI-compatible</option>
+                <option value="anthropic-compatible">Anthropic-compatible</option>
+                <option value="openrouter">OpenRouter</option>
+                <option value="gemini">Gemini</option>
+              </select>
+            </label>
+            <label class="field">
+              Provider name
+              <input class="input" id="provider-name" type="text" autocomplete="off" />
+            </label>
+            <label class="field">
+              API Key
+              <input class="input" id="api-key" type="password" placeholder="sk-..." autocomplete="off" />
+            </label>
+            <label class="field" id="endpoint-field">
+              Endpoint
+              <input class="input" id="endpoint" type="url" autocomplete="off" />
+            </label>
+            <label class="field">
+              Max requests per session
+              <input class="input" id="request-limit" type="number" min="1" inputmode="numeric" placeholder="No limit" autocomplete="off" />
+              <span class="field-help">Empty means no request limit.</span>
+            </label>
+            <p class="trust-note">Only use endpoints you trust. Your API key is sent to this URL by the extension.</p>
+            <div class="button-row">
+              <button class="button button-secondary" id="check" type="button">Check connection</button>
+              <button class="button button-primary" id="save" type="button" disabled>Save provider</button>
+            </div>
+            <p class="status-text" id="status" role="status"></p>
+          </div>
+        </section>
+
+        <section class="wallet-section">
+          <details class="diagnostics">
+            <summary>Diagnostics</summary>
+            <div class="diagnostics-grid">
+              <p>Base URL <span id="debug-base-url">-</span></p>
+              <p>Responses URL <span id="debug-responses-url">-</span></p>
+              <p>Models URL <span id="debug-models-url">-</span></p>
+              <p>Model source <span id="debug-model-source">-</span></p>
+              <p>Model fetch error <span id="debug-model-error">-</span></p>
+              <p>Last check <span id="debug-check-status">idle</span></p>
+              <p>Last error <span id="debug-error">-</span></p>
+            </div>
+          </details>
+        </section>
+      </section>
+
+      <section id="models-view" class="popup-view is-hidden">
+        <header class="top-nav settings-nav">
+          <button class="icon-button" id="back-from-models" type="button" aria-label="Back to wallet">←</button>
+          <h1 class="brand-title">Available models</h1>
+          <span aria-hidden="true"></span>
+        </header>
+        <section class="wallet-section settings-panel">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">OpenAI-compatible</h2>
+              <p class="section-subtitle"><span id="models-total">0</span> models</p>
+            </div>
+          </div>
+          <label class="field model-search-field" id="model-search-field">
+            Search models
+            <input class="input" id="model-search" type="search" placeholder="Search model id" autocomplete="off" />
+          </label>
+          <p class="section-subtitle" id="model-filter-count"></p>
+          <div class="model-inventory-list" id="model-inventory-list"></div>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>
