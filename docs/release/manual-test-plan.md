@@ -19,11 +19,12 @@
 ## Happy Path
 
 1. Open demo website.
-2. Click connect.
-3. Confirm approval window shows origin, reason, provider, and models.
-4. Approve one model.
-5. Send `1+2=?`.
-6. Confirm streamed response appears.
+2. Leave `Provider ID` blank so the demo uses the first saved provider.
+3. Click connect.
+4. Confirm approval window shows origin, reason, provider, and models.
+5. Approve one model.
+6. Send `1+2=?`.
+7. Confirm streamed response appears.
 
 ## Security Paths
 

@@ -122,7 +122,6 @@ import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPerm
 const modelInfo = await getAiWalletModels()
 const existing = await getAiWalletPermissions()
 const permission = existing[0] ?? await connectAiWallet({
-  providerId: "provider_openai",
   models: modelInfo.models,
   reason: "Demo conversation needs AI response access"
 })

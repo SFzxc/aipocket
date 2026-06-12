@@ -1,8 +1,8 @@
-# AI Wallet MVP Gap Proposal
+# AIPocket MVP Gap Proposal
 
 ## Goal
 
-Build first end-to-end MVP where a demo website connects to the AI Wallet Chrome extension, gets an approved session, sends `1+2=?`, and renders streamed output from an OpenAI Responses API compatible endpoint.
+Build first end-to-end MVP where a demo website connects to the AIPocket Chrome extension, gets an approved session, sends `1+2=?`, and renders streamed output from an OpenAI Responses API compatible endpoint.
 
 ## Current State
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPermissions, requestResponseStream } from "@aipocket/connect-modal";
 import type { AiWalletPermission } from "@aipocket/protocol";
+import { buildConnectRequest } from "./connect-request";
 
 export function App() {
   const requestIdRef = useRef(0);
@@ -13,7 +14,7 @@ export function App() {
   const [modelSource, setModelSource] = useState("");
   const [approvedModels, setApprovedModels] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState("");
-  const [providerId, setProviderId] = useState("provider_openai");
+  const [providerId, setProviderId] = useState("");
 
   useEffect(() => {
     let cancelled = false;
@@ -29,7 +30,7 @@ export function App() {
           setPermission(restoredPermission);
           setApprovedModels(restoredPermission?.models ?? []);
           setSelectedModel(restoredPermission?.models[0] ?? "");
-          setProviderId(restoredPermission?.providerId ?? "provider_openai");
+          setProviderId(restoredPermission?.providerId ?? "");
         }
       } catch {
         // Extension may be absent on first demo load; explicit Connect still reports errors.
@@ -49,11 +50,7 @@ export function App() {
       const modelInfo = await getAiWalletModels();
       setAvailableModels(modelInfo.models);
       setModelSource(modelInfo.source);
-      const nextPermission = await connectAiWallet({
-        providerId,
-        models: modelInfo.models,
-        reason: "Demo conversation needs AI response access"
-      });
+      const nextPermission = await connectAiWallet(buildConnectRequest({ providerId, models: modelInfo.models }));
       setPermission(nextPermission);
       setApprovedModels(nextPermission.models);
       setSelectedModel(nextPermission.models[0] ?? "");
@@ -129,8 +126,8 @@ export function App() {
       <p>Connect extension, send <code>1+2=?</code>, then render streamed result.</p>
       {permission ? <button onClick={disconnect}>Disconnect AIPocket</button> : <button onClick={connect}>Connect AIPocket</button>}
       <label style={{ display: "block", marginTop: 12 }}>
-        Provider ID
-        <input value={providerId} onChange={(event) => setProviderId(event.target.value)} style={{ display: "block", marginTop: 4 }} />
+        Provider ID (optional; blank uses the first saved provider)
+        <input value={providerId} onChange={(event) => setProviderId(event.target.value)} placeholder="provider_..." style={{ display: "block", marginTop: 4 }} />
       </label>
       {availableModels.length > 0 ? <p>Available models ({modelSource}): {availableModels.join(", ")}</p> : null}
       {permission ? (

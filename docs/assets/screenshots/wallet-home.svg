@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-label="AI Wallet extension home mock screenshot">
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-label="AIPocket extension home mock screenshot">
   <rect width="760" height="520" rx="28" fill="#f6f4ef"/>
   <rect x="220" y="34" width="320" height="452" rx="24" fill="#fbfaf7" stroke="#ded8ce"/>
   <g transform="translate(244 58)">
     <rect width="34" height="34" rx="12" fill="#f3e6d8" stroke="#e2d2c1"/>
     <text x="17" y="22" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="800" fill="#2f2418">AI</text>
-    <text x="46" y="23" font-family="Inter, Arial" font-size="16" font-weight="800" fill="#24272a">AI Wallet</text>
+    <text x="46" y="23" font-family="Inter, Arial" font-size="16" font-weight="800" fill="#24272a">AIPocket</text>
   </g>
   <rect x="244" y="112" width="272" height="174" rx="20" fill="#fff" stroke="#e4ded5"/>
   <text x="264" y="142" font-family="Inter, Arial" font-size="11" font-weight="800" fill="#7a756f">WALLET</text>

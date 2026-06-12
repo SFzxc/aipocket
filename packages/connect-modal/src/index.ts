@@ -11,7 +11,7 @@ export type AiWalletProvider = {
 };
 
 export type ConnectRequest = {
-  providerId: string;
+  providerId?: string;
   models: string[];
   reason: string;
 };

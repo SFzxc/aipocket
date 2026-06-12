@@ -36,7 +36,7 @@ npm run build
 8. Click `Check connection`.
 9. Click `Save provider`.
 
-For OpenAI-compatible local demo, the default provider id is `provider_openai`.
+The demo leaves `Provider ID` blank by default, so AIPocket uses the first saved provider. Enter a provider id only when testing a specific provider.
 
 ## 5. Run Demo Website
 
@@ -48,7 +48,7 @@ Open the local URL in the same Chrome profile where the extension is installed.
 
 ## 6. Try The Flow
 
-1. Confirm provider id is `provider_openai`.
+1. Leave `Provider ID` blank unless you need a specific provider.
 2. Click `Connect AIPocket`.
 3. Approve requested model in the extension approval window.
 4. Keep default prompt `1+2=?`.
@@ -59,4 +59,4 @@ Open the local URL in the same Chrome profile where the extension is installed.
 
 - If `window.aiWallet` is missing, reload the demo tab after installing extension.
 - If check fails, confirm API key and endpoint match the selected provider type.
-- If stream fails, confirm approved model belongs to the same provider id.
+- If stream fails after entering a provider id, confirm the approved model belongs to that provider. If unsure, clear the provider id and connect again.

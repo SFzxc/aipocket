@@ -119,7 +119,7 @@ flowchart TD
   Configure --> Check[Click Check]
   Check --> Save[Save after success]
   Save --> RunDemo[npm run dev -w @aipocket/demo-web]
-  RunDemo --> Connect[Click Connect AI Wallet]
+  RunDemo --> Connect[Click Connect AIPocket]
   Connect --> Approve[Approve model]
   Approve --> Send[Send 1+2=?]
   Send --> Stream[Render streamed answer]

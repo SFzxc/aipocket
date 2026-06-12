@@ -30,7 +30,6 @@ The demo package wraps this detection in `AiWalletNotFoundError`.
 import { connectAiWallet } from "@aipocket/connect-modal";
 
 const permission = await connectAiWallet({
-  providerId: "provider_openai",
   models: ["gpt-5.5"],
   reason: "Generate assistant replies for this chat UI"
 });
@@ -86,7 +85,7 @@ type AiWalletPermission = {
 
 ## Provider IDs
 
-Current local demo uses `provider_openai` for migrated/default OpenAI-compatible provider config. Future provider discovery helpers should make provider selection easier for websites.
+`providerId` is optional when requesting accounts. If omitted, AIPocket uses the first enabled provider. Pass a provider id only when a website needs a specific saved provider.
 
 ## Error Handling
 

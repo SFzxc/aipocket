@@ -91,7 +91,6 @@ Website requests permission for one provider and one or more models.
 await window.aiWallet.request({
   method: "ai_requestAccounts",
   params: {
-    providerId: "provider_openai",
     models: ["gpt-5.5"],
     reason: "Demo conversation needs AI response access"
   }

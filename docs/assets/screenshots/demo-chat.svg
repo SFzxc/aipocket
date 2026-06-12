@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="AI Wallet demo app mock screenshot">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="AIPocket demo app mock screenshot">
   <rect width="1000" height="700" fill="#fbfaf7"/>
   <rect x="180" y="70" width="640" height="560" rx="28" fill="#fff" stroke="#e4ded5"/>
-  <text x="230" y="130" font-family="Inter, Arial" font-size="34" font-weight="850" fill="#24272a">AI Wallet Demo</text>
+  <text x="230" y="130" font-family="Inter, Arial" font-size="34" font-weight="850" fill="#24272a">AIPocket Demo</text>
   <text x="230" y="164" font-family="Inter, Arial" font-size="15" fill="#6f747b">Connect extension, send 1+2=?, then render streamed result.</text>
   <rect x="230" y="198" width="150" height="40" rx="14" fill="#f5f1ea" stroke="#e2dbd0"/><text x="305" y="223" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="850" fill="#4f5358">Disconnect</text>
   <rect x="398" y="198" width="172" height="40" rx="14" fill="#e8f7ed"/><text x="484" y="223" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="850" fill="#15562f">Connected</text>
-  <text x="230" y="278" font-family="Inter, Arial" font-size="14" font-weight="850" fill="#24272a">Provider</text>
-  <rect x="230" y="294" width="540" height="42" rx="12" fill="#fbfaf7" stroke="#d8d3ca"/><text x="250" y="320" font-family="Inter, Arial" font-size="13" fill="#24272a">provider_openai</text>
+  <text x="230" y="278" font-family="Inter, Arial" font-size="14" font-weight="850" fill="#24272a">Provider ID (optional)</text>
+  <rect x="230" y="294" width="540" height="42" rx="12" fill="#fbfaf7" stroke="#d8d3ca"/><text x="250" y="320" font-family="Inter, Arial" font-size="13" fill="#8a8f96">blank uses first saved provider</text>
   <text x="230" y="370" font-family="Inter, Arial" font-size="14" font-weight="850" fill="#24272a">Prompt</text>
   <rect x="230" y="386" width="540" height="92" rx="14" fill="#fbfaf7" stroke="#d8d3ca"/><text x="250" y="420" font-family="Inter, Arial" font-size="16" fill="#24272a">1+2=?</text>
   <rect x="230" y="500" width="104" height="40" rx="14" fill="#e2761b"/><text x="282" y="525" text-anchor="middle" font-family="Inter, Arial" font-size="13" font-weight="850" fill="#fff">Send</text>
