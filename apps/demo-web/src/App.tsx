@@ -1,39 +1,62 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPermissions, requestResponseStream } from "@aipocket/connect-modal";
 import type { AiWalletPermission } from "@aipocket/protocol";
 import { buildConnectRequest } from "./connect-request";
+import { getConnectionStatus } from "./demo-state";
+import { createTopic, deleteTopic, sortTopics, updateTopicDraft, updateTopicMessages, type ChatMessage, type DemoTopic } from "./topics";
+
+const TOPICS_STORAGE_KEY = "aipocketDemoTopics";
+
+function loadTopics(): DemoTopic[] {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(TOPICS_STORAGE_KEY) ?? "[]") as DemoTopic[];
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : [createTopic()];
+  } catch {
+    return [createTopic()];
+  }
+}
 
 export function App() {
   const requestIdRef = useRef(0);
   const [permission, setPermission] = useState<AiWalletPermission | null>(null);
-  const [prompt, setPrompt] = useState("1+2=?");
-  const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
-  const [availableModels, setAvailableModels] = useState<string[]>([]);
-  const [modelSource, setModelSource] = useState("");
+  const [hasProvider, setHasProvider] = useState(true);
   const [approvedModels, setApprovedModels] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState("");
   const [providerId, setProviderId] = useState("");
+  const [topics, setTopics] = useState<DemoTopic[]>(() => loadTopics());
+  const [activeTopicId, setActiveTopicId] = useState(() => sortTopics(loadTopics())[0].id);
+
+  const activeTopic = useMemo(() => topics.find((topic) => topic.id === activeTopicId) ?? topics[0] ?? createTopic(), [activeTopicId, topics]);
+  const status = getConnectionStatus({ hasProvider, isConnected: permission !== null, isStreaming });
+  const sortedTopics = sortTopics(topics);
+
+  useEffect(() => {
+    localStorage.setItem(TOPICS_STORAGE_KEY, JSON.stringify(topics));
+  }, [topics]);
 
   useEffect(() => {
     let cancelled = false;
 
     async function restorePermission() {
       try {
-        const modelInfo = await getAiWalletModels();
         const permissions = await getAiWalletPermissions();
         if (!cancelled) {
-          setAvailableModels(modelInfo.models);
-          setModelSource(modelInfo.source);
+          setHasProvider(true);
           const restoredPermission = permissions[0] ?? null;
           setPermission(restoredPermission);
           setApprovedModels(restoredPermission?.models ?? []);
           setSelectedModel(restoredPermission?.models[0] ?? "");
           setProviderId(restoredPermission?.providerId ?? "");
         }
-      } catch {
-        // Extension may be absent on first demo load; explicit Connect still reports errors.
+      } catch (restoreError) {
+        if (!cancelled) {
+          setHasProvider(false);
+          if (restoreError instanceof Error && restoreError.name !== "AiWalletNotFoundError") {
+            setError(restoreError.message);
+          }
+        }
       }
     }
 
@@ -44,17 +67,23 @@ export function App() {
     };
   }, []);
 
+  function updateActiveTopic(updater: (topic: DemoTopic) => DemoTopic) {
+    setTopics((currentTopics) => currentTopics.map((topic) => (topic.id === activeTopic.id ? updater(topic) : topic)));
+  }
+
   async function connect() {
     setError("");
     try {
       const modelInfo = await getAiWalletModels();
-      setAvailableModels(modelInfo.models);
-      setModelSource(modelInfo.source);
+      setHasProvider(true);
       const nextPermission = await connectAiWallet(buildConnectRequest({ providerId, models: modelInfo.models }));
       setPermission(nextPermission);
       setApprovedModels(nextPermission.models);
       setSelectedModel(nextPermission.models[0] ?? "");
     } catch (connectError) {
+      if (connectError instanceof Error && connectError.name === "AiWalletNotFoundError") {
+        setHasProvider(false);
+      }
       setError(connectError instanceof Error ? connectError.message : "Failed to connect AIPocket");
     }
   }
@@ -71,7 +100,6 @@ export function App() {
       setPermission(null);
       setApprovedModels([]);
       setSelectedModel("");
-      setOutput("");
       setIsStreaming(false);
     } catch (disconnectError) {
       setError(disconnectError instanceof Error ? disconnectError.message : "Failed to disconnect AIPocket");
@@ -84,6 +112,11 @@ export function App() {
       return;
     }
 
+    const prompt = activeTopic.draft.trim();
+    if (!prompt) {
+      return;
+    }
+
     const model = selectedModel || approvedModels[0];
     if (!model) {
       setError("No approved model available");
@@ -92,9 +125,12 @@ export function App() {
 
     const requestId = requestIdRef.current + 1;
     requestIdRef.current = requestId;
+    const userMessage: ChatMessage = { id: `user-${requestId}`, role: "user", content: prompt };
+    const assistantMessage: ChatMessage = { id: `assistant-${requestId}`, role: "assistant", content: "" };
+    const nextMessages = [...activeTopic.messages, userMessage, assistantMessage];
 
     setError("");
-    setOutput("");
+    updateActiveTopic((topic) => ({ ...updateTopicMessages(topic, nextMessages), draft: "" }));
     setIsStreaming(true);
 
     try {
@@ -105,7 +141,18 @@ export function App() {
         input: prompt,
         onDelta: (delta) => {
           if (requestIdRef.current === requestId) {
-            setOutput((currentOutput) => currentOutput + delta);
+            setTopics((currentTopics) =>
+              currentTopics.map((topic) => {
+                if (topic.id !== activeTopic.id) {
+                  return topic;
+                }
+
+                const streamedMessages = topic.messages.map((message) =>
+                  message.id === assistantMessage.id ? { ...message, content: message.content + delta } : message
+                );
+                return updateTopicMessages(topic, streamedMessages);
+              })
+            );
           }
         }
       });
@@ -120,49 +167,124 @@ export function App() {
     }
   }
 
+  function createNewTopic() {
+    requestIdRef.current += 1;
+    const topic = createTopic();
+    setTopics((currentTopics) => [topic, ...currentTopics]);
+    setActiveTopicId(topic.id);
+    setError("");
+    setIsStreaming(false);
+  }
+
+  function clearCurrentTopic() {
+    requestIdRef.current += 1;
+    updateActiveTopic((topic) => updateTopicMessages({ ...topic, draft: "1+2=?" }, []));
+    setError("");
+    setIsStreaming(false);
+  }
+
+  function removeCurrentTopic() {
+    const result = deleteTopic(topics, activeTopic.id);
+    setTopics(result.topics);
+    setActiveTopicId(result.activeTopicId);
+  }
+
   return (
-    <main style={{ maxWidth: 720, margin: "40px auto", fontFamily: "system-ui" }}>
-      <h1>AIPocket Demo</h1>
-      <p>Connect extension, send <code>1+2=?</code>, then render streamed result.</p>
-      {permission ? <button onClick={disconnect}>Disconnect AIPocket</button> : <button onClick={connect}>Connect AIPocket</button>}
-      <label style={{ display: "block", marginTop: 12 }}>
-        Provider ID (optional; blank uses the first saved provider)
-        <input value={providerId} onChange={(event) => setProviderId(event.target.value)} placeholder="provider_..." style={{ display: "block", marginTop: 4 }} />
-      </label>
-      {availableModels.length > 0 ? <p>Available models ({modelSource}): {availableModels.join(", ")}</p> : null}
-      {permission ? (
-        <p>
-          Connected<br />
-          Provider: {permission.providerId}<br />
-          Connected models: {permission.models.join(", ")}<br />
-          Expires at: {permission.expiresAt}
-        </p>
-      ) : (
-        <p>Disconnected</p>
-      )}
-      <section style={{ marginTop: 24 }}>
-        {approvedModels.length > 1 ? (
-          <label style={{ display: "block", marginBottom: 12 }}>
-            Model
-            <select value={selectedModel} onChange={(event) => setSelectedModel(event.target.value)} style={{ display: "block", marginTop: 4 }}>
-              {approvedModels.map((model) => (
-                <option key={model} value={model}>{model}</option>
-              ))}
-            </select>
-          </label>
-        ) : approvedModels.length === 1 ? (
-          <p>Model: <strong>{approvedModels[0]}</strong></p>
-        ) : null}
-        <textarea
-          value={prompt}
-          onChange={(event) => setPrompt(event.target.value)}
-          rows={4}
-          style={{ width: "100%" }}
-        />
-        <button onClick={sendPrompt} disabled={isStreaming}>{isStreaming ? "Streaming..." : "Send"}</button>
-      </section>
-      {error ? <p role="alert">{error}</p> : null}
-      <pre>{output}</pre>
+    <main className="app-shell">
+      <div className="demo-layout">
+        <aside className="topic-sidebar">
+          <div className="sidebar-brand">
+            <h1>AIPocket</h1>
+            <span className={`status-badge ${status.tone}`}>{status.label}</span>
+          </div>
+          <button className="primary-button full-width" onClick={createNewTopic} disabled={isStreaming}>New Topic</button>
+
+          <nav className="topic-list" aria-label="Topics">
+            {sortedTopics.map((topic) => (
+              <button
+                className={`topic-item ${topic.id === activeTopic.id ? "active" : ""}`}
+                key={topic.id}
+                onClick={() => setActiveTopicId(topic.id)}
+                disabled={isStreaming}
+              >
+                <span>{topic.title}</span>
+                <small>{topic.messages.length === 0 ? "Empty" : `${topic.messages.length} messages`}</small>
+              </button>
+            ))}
+          </nav>
+
+          <div className="connection-card">
+            <div>
+              <strong>{permission ? "Connected" : "Disconnected"}</strong>
+              <p>{permission?.providerId ?? "No active session"}</p>
+            </div>
+            {permission ? (
+              <button className="secondary-button" onClick={disconnect} disabled={isStreaming}>Disconnect</button>
+            ) : (
+              <button className="secondary-button" onClick={connect}>Connect</button>
+            )}
+          </div>
+        </aside>
+
+        <section className="chat-panel">
+          <header className="chat-topbar">
+            <div>
+              <h2>{activeTopic.title}</h2>
+              <p>{permission ? selectedModel || approvedModels[0] || "No model selected" : "Connect AIPocket first"}</p>
+            </div>
+            <div className="topbar-actions">
+              <button className="ghost-button" onClick={clearCurrentTopic} disabled={isStreaming}>Clear Topic</button>
+              <button className="ghost-button" onClick={removeCurrentTopic} disabled={isStreaming}>Delete</button>
+            </div>
+          </header>
+
+          <div className="settings-row">
+            <label>
+              Provider ID
+              <input value={providerId} onChange={(event) => setProviderId(event.target.value)} placeholder="Optional" />
+            </label>
+            {approvedModels.length > 1 ? (
+              <label>
+                Model
+                <select value={selectedModel} onChange={(event) => setSelectedModel(event.target.value)}>
+                  {approvedModels.map((model) => (
+                    <option key={model} value={model}>{model}</option>
+                  ))}
+                </select>
+              </label>
+            ) : null}
+          </div>
+
+          <div className="chat-window" aria-live="polite">
+            {activeTopic.messages.length === 0 ? (
+              <div className="empty-state">
+                <strong>Start a conversation</strong>
+                {!permission ? <p>Connect AIPocket first.</p> : null}
+              </div>
+            ) : activeTopic.messages.map((message) => (
+              <div className={`message ${message.role}`} key={message.id}>
+                {message.content || (message.role === "assistant" && isStreaming ? "Thinking..." : "")}
+              </div>
+            ))}
+          </div>
+
+          <div className="composer">
+            {error ? <p className="alert" role="alert">{error}</p> : null}
+            {!hasProvider ? <p className="alert" role="alert">Install or reload AIPocket, then refresh this tab.</p> : null}
+            <textarea
+              value={activeTopic.draft}
+              onChange={(event) => updateActiveTopic((topic) => updateTopicDraft(topic, event.target.value))}
+              placeholder="Ask anything..."
+              rows={3}
+            />
+            <div className="composer-actions">
+              <button className="primary-button" onClick={sendPrompt} disabled={isStreaming || !permission || activeTopic.draft.trim().length === 0}>
+                {isStreaming ? "Streaming..." : "Send"}
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

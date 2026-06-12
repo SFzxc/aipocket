@@ -39,7 +39,7 @@ describe("ui-state", () => {
       statusLabel: "Setup required",
       hostLabel: "Not configured",
       modelCountLabel: "None saved",
-      actionLabel: "Set up provider"
+      actionLabel: "Add provider"
     });
   });
 
@@ -55,7 +55,7 @@ describe("ui-state", () => {
       statusLabel: "Ready",
       hostLabel: "api.openai.com",
       modelCountLabel: "3 available",
-      actionLabel: "Ready for website requests"
+      actionLabel: "Providers"
     });
   });
 
@@ -65,7 +65,7 @@ describe("ui-state", () => {
       statusLabel: "Ready",
       hostLabel: "Custom endpoint",
       modelCountLabel: "1 available",
-      actionLabel: "Ready for website requests"
+      actionLabel: "Providers"
     });
   });
 

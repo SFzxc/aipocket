@@ -25,13 +25,9 @@
 
         <section class="wallet-home-card">
           <div class="identity-header">
-            <div>
-              <p class="eyebrow">Wallet</p>
-              <h2 class="wallet-title">AI Access Wallet</h2>
-            </div>
+            <h2 class="wallet-title">Ready</h2>
             <span class="status-badge" id="wallet-status">Setup required</span>
           </div>
-          <p class="security-copy">Your API key stays inside this extension.</p>
           <div class="wallet-rows">
             <p>Providers <span id="provider-count">No providers</span></p>
             <button class="wallet-row-button" id="open-models" type="button">
@@ -39,16 +35,15 @@
               <strong id="provider-model-count">None saved</strong>
               <span aria-hidden="true">›</span>
             </button>
-            <p>Enabled providers <span id="provider-host">Not configured</span></p>
+            <p>Sessions <span id="session-count">0</span></p>
           </div>
-          <button class="button wallet-action" id="provider-action" type="button">Set up provider</button>
+          <button class="button wallet-action" id="provider-action" type="button">Add provider</button>
         </section>
 
         <section class="wallet-section">
           <div class="section-header">
             <div>
-              <h2 class="section-title">Connected sites</h2>
-              <p class="section-subtitle"><span id="session-count">0</span> active</p>
+              <h2 class="section-title">Sessions</h2>
             </div>
             <button class="text-button" id="refresh-sessions" type="button">Refresh</button>
           </div>
@@ -64,21 +59,19 @@
         </header>
 
         <section class="wallet-section provider-management-section">
-          <div class="provider-summary-strip" id="provider-summary-strip">No providers yet</div>
-          <div class="provider-form-slot" id="provider-form-slot-top"></div>
           <div class="provider-card-stack" id="providers-list"></div>
+          <div class="provider-form-slot" id="provider-form-slot-top"></div>
         </section>
 
         <section class="wallet-section settings-panel provider-form-panel is-hidden" id="provider-form-panel">
           <div class="section-header">
             <div>
               <h2 class="section-title" id="provider-form-title">Add provider</h2>
-              <p class="section-subtitle">Choose provider type, validate, then save.</p>
             </div>
           </div>
           <div class="form-grid">
             <label class="field">
-              Provider type
+              Type
               <select class="input" id="provider-type">
                 <option value="openai-compatible">OpenAI-compatible</option>
                 <option value="anthropic-compatible">Anthropic-compatible</option>
@@ -87,11 +80,11 @@
               </select>
             </label>
             <label class="field">
-              Provider name
+              Name
               <input class="input" id="provider-name" type="text" autocomplete="off" />
             </label>
             <label class="field">
-              API Key
+              API key
               <input class="input" id="api-key" type="password" placeholder="sk-..." autocomplete="off" />
             </label>
             <label class="field" id="endpoint-field">
@@ -99,11 +92,11 @@
               <input class="input" id="endpoint" type="url" autocomplete="off" />
             </label>
             <label class="field">
-              Max requests per session
+              Request limit
               <input class="input" id="request-limit" type="number" min="1" inputmode="numeric" placeholder="No limit" autocomplete="off" />
               <span class="field-help">Empty means no request limit.</span>
             </label>
-            <p class="trust-note">Only use endpoints you trust. Your API key is sent to this URL by the extension.</p>
+            <p class="trust-note">Only use trusted endpoints.</p>
             <div class="button-row">
               <button class="button button-secondary" id="check" type="button">Check connection</button>
               <button class="button button-primary" id="save" type="button" disabled>Save provider</button>
@@ -114,7 +107,7 @@
 
         <section class="wallet-section">
           <details class="diagnostics">
-            <summary>Diagnostics</summary>
+            <summary>Debug</summary>
             <div class="diagnostics-grid">
               <p>Base URL <span id="debug-base-url">-</span></p>
               <p>Responses URL <span id="debug-responses-url">-</span></p>
@@ -131,13 +124,13 @@
       <section id="models-view" class="popup-view is-hidden">
         <header class="top-nav settings-nav">
           <button class="icon-button" id="back-from-models" type="button" aria-label="Back to wallet">←</button>
-          <h1 class="brand-title">Available models</h1>
+          <h1 class="brand-title">Models</h1>
           <span aria-hidden="true"></span>
         </header>
         <section class="wallet-section settings-panel">
           <div class="section-header">
             <div>
-              <h2 class="section-title">OpenAI-compatible</h2>
+              <h2 class="section-title">Models</h2>
               <p class="section-subtitle"><span id="models-total">0</span> models</p>
             </div>
           </div>

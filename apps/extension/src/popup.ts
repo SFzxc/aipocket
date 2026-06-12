@@ -1,7 +1,6 @@
 import { DEFAULT_PROVIDER_ENDPOINTS, getProviderTypeLabel, migrateStoredProviders, PROVIDERS_STORAGE_KEY, type ProviderConfig, type ProviderType } from "./providers";
 import {
   filterModels,
-  formatProviderStats,
   formatRequestLimit,
   formatSessionUsage,
   getProvidersSummary,
@@ -31,15 +30,14 @@ const endpointField = document.querySelector<HTMLElement>("#endpoint-field");
 const requestLimitInput = document.querySelector<HTMLInputElement>("#request-limit");
 const addProviderButton = document.querySelector<HTMLButtonElement>("#add-provider");
 const providersListEl = document.querySelector<HTMLDivElement>("#providers-list");
-const providerSummaryStripEl = document.querySelector<HTMLDivElement>("#provider-summary-strip");
 const providerFormSlotTopEl = document.querySelector<HTMLDivElement>("#provider-form-slot-top");
 const providerFormPanelEl = document.querySelector<HTMLElement>("#provider-form-panel");
+const providerFormTitleEl = document.querySelector<HTMLHeadingElement>("#provider-form-title");
 const providerCountEl = document.querySelector<HTMLSpanElement>("#provider-count");
 const checkButton = document.querySelector<HTMLButtonElement>("#check");
 const saveButton = document.querySelector<HTMLButtonElement>("#save");
 const statusEl = document.querySelector<HTMLParagraphElement>("#status");
 const walletStatusEl = document.querySelector<HTMLSpanElement>("#wallet-status");
-const providerHostEl = document.querySelector<HTMLSpanElement>("#provider-host");
 const providerModelCountEl = document.querySelector<HTMLSpanElement>("#provider-model-count");
 const refreshSessionsButton = document.querySelector<HTMLButtonElement>("#refresh-sessions");
 const sessionsEl = document.querySelector<HTMLDivElement>("#sessions");
@@ -200,18 +198,22 @@ function renderProviders() {
   const summary = getProvidersSummary(providers);
   const totalModels = allModels().length;
   const enabledCount = providers.filter((provider) => provider.enabled).length;
-  if (providerSummaryStripEl) {
-    providerSummaryStripEl.textContent = formatProviderStats({ total: providers.length, enabled: enabledCount, models: totalModels });
-  }
   if (walletStatusEl) {
     walletStatusEl.textContent = summary.statusLabel;
     walletStatusEl.classList.toggle("is-ready", summary.statusLabel === "Ready");
   }
   if (providerCountEl) providerCountEl.textContent = summary.providerCountLabel;
   if (providerModelCountEl) providerModelCountEl.textContent = providers.length === 0 ? "None saved" : `${totalModels} available`;
-  if (providerHostEl) providerHostEl.textContent = providers.length === 0 ? "Not configured" : `${enabledCount} enabled`;
-  if (providerActionButton) providerActionButton.textContent = providers.length === 0 ? "Set up provider" : "Manage providers";
-  providersListEl?.replaceChildren(...providers.map(renderProviderRow));
+  if (providerActionButton) providerActionButton.textContent = enabledCount === 0 ? "Add provider" : "Providers";
+  if (!providersListEl) return;
+  if (providers.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state compact-empty";
+    empty.textContent = "No providers yet";
+    providersListEl.replaceChildren(empty);
+    return;
+  }
+  providersListEl.replaceChildren(...providers.map(renderProviderRow));
 }
 
 async function saveProviders() {
@@ -230,6 +232,7 @@ function startEdit(provider: ProviderConfig | null = null) {
   if (apiKeyInput) apiKeyInput.value = provider?.apiKey ?? "";
   if (endpointInput) endpointInput.value = provider?.endpoint ?? "";
   if (requestLimitInput) requestLimitInput.value = provider?.requestLimit ? String(provider.requestLimit) : "";
+  if (providerFormTitleEl) providerFormTitleEl.textContent = provider ? "Edit provider" : "Add provider";
   updateEndpointDefault();
   providerFormPanelEl?.classList.remove("is-hidden");
   if (provider && providerFormPanelEl) {

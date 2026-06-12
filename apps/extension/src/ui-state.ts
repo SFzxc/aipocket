@@ -39,7 +39,7 @@ export function getProviderSummary(input: ProviderSummaryInput): ProviderSummary
       statusLabel: "Setup required",
       hostLabel: "Not configured",
       modelCountLabel: "None saved",
-      actionLabel: "Set up provider"
+      actionLabel: "Add provider"
     };
   }
 
@@ -55,7 +55,7 @@ export function getProviderSummary(input: ProviderSummaryInput): ProviderSummary
     statusLabel: "Ready",
     hostLabel,
     modelCountLabel: modelCount === 1 ? "1 available" : `${modelCount} available`,
-    actionLabel: "Ready for website requests"
+    actionLabel: "Providers"
   };
 }
 
