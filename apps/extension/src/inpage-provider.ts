@@ -94,7 +94,7 @@ window.aiWallet = {
     return new Promise((resolve, reject) => {
       const timeoutId = window.setTimeout(() => {
         pending.delete(id);
-        reject(new Error("AI Wallet request timed out"));
+        reject(new Error("AIPocket request timed out"));
       }, REQUEST_TIMEOUT_MS);
       pending.set(id, { resolve, reject, timeoutId });
       window.postMessage(
@@ -114,13 +114,13 @@ window.aiWallet = {
     return new Promise<void>((resolve, reject) => {
       let timeoutId = window.setTimeout(() => {
         pendingStreams.delete(streamId);
-        reject(new Error("AI Wallet stream timed out"));
+        reject(new Error("AIPocket stream timed out"));
       }, REQUEST_TIMEOUT_MS);
       const resetTimeout = () => {
         clearTimeout(timeoutId);
         timeoutId = window.setTimeout(() => {
           pendingStreams.delete(streamId);
-          reject(new Error("AI Wallet stream timed out"));
+          reject(new Error("AIPocket stream timed out"));
         }, REQUEST_TIMEOUT_MS);
         const stream = pendingStreams.get(streamId);
         if (stream) {

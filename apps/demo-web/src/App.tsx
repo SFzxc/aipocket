@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPermissions, requestResponseStream } from "@ai-wallet/connect-modal";
-import type { AiWalletPermission } from "@ai-wallet/protocol";
+import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPermissions, requestResponseStream } from "@aipocket/connect-modal";
+import type { AiWalletPermission } from "@aipocket/protocol";
 
 export function App() {
   const requestIdRef = useRef(0);
@@ -58,7 +58,7 @@ export function App() {
       setApprovedModels(nextPermission.models);
       setSelectedModel(nextPermission.models[0] ?? "");
     } catch (connectError) {
-      setError(connectError instanceof Error ? connectError.message : "Failed to connect AI Wallet");
+      setError(connectError instanceof Error ? connectError.message : "Failed to connect AIPocket");
     }
   }
 
@@ -77,13 +77,13 @@ export function App() {
       setOutput("");
       setIsStreaming(false);
     } catch (disconnectError) {
-      setError(disconnectError instanceof Error ? disconnectError.message : "Failed to disconnect AI Wallet");
+      setError(disconnectError instanceof Error ? disconnectError.message : "Failed to disconnect AIPocket");
     }
   }
 
   async function sendPrompt() {
     if (!permission) {
-      setError("Connect AI Wallet first");
+      setError("Connect AIPocket first");
       return;
     }
 
@@ -114,7 +114,7 @@ export function App() {
       });
     } catch (streamError) {
       if (requestIdRef.current === requestId) {
-        setError(streamError instanceof Error ? streamError.message : "AI Wallet stream failed");
+        setError(streamError instanceof Error ? streamError.message : "AIPocket stream failed");
       }
     } finally {
       if (requestIdRef.current === requestId) {
@@ -125,9 +125,9 @@ export function App() {
 
   return (
     <main style={{ maxWidth: 720, margin: "40px auto", fontFamily: "system-ui" }}>
-      <h1>AI Wallet Demo</h1>
+      <h1>AIPocket Demo</h1>
       <p>Connect extension, send <code>1+2=?</code>, then render streamed result.</p>
-      {permission ? <button onClick={disconnect}>Disconnect AI Wallet</button> : <button onClick={connect}>Connect AI Wallet</button>}
+      {permission ? <button onClick={disconnect}>Disconnect AIPocket</button> : <button onClick={connect}>Connect AIPocket</button>}
       <label style={{ display: "block", marginTop: 12 }}>
         Provider ID
         <input value={providerId} onChange={(event) => setProviderId(event.target.value)} style={{ display: "block", marginTop: 4 }} />

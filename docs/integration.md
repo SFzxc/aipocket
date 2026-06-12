@@ -2,21 +2,23 @@
 
 ## Concept
 
-AI Wallet injects `window.aiWallet` into web pages. Websites request scoped provider/model access, then stream responses through the extension. The real provider API key stays inside the extension.
+AIPocket injects `window.aiWallet` into web pages. Websites request scoped provider/model access, then stream responses through the extension. The real provider API key stays inside the extension.
+
+AIPocket is the public product name. `aiWallet` remains the provider protocol name for website integrations.
 
 ## Install
 
 ```sh
-npm install @ai-wallet/connect-modal
+npm install @aipocket/connect-modal
 ```
 
 For local workspace development, import from `packages/connect-modal` through the monorepo package build.
 
-## Detect AI Wallet
+## Detect AIPocket
 
 ```ts
 if (!window.aiWallet) {
-  throw new Error("AI Wallet extension is not installed or this tab needs reload");
+  throw new Error("AIPocket extension is not installed or this tab needs reload");
 }
 ```
 
@@ -25,7 +27,7 @@ The demo package wraps this detection in `AiWalletNotFoundError`.
 ## Connect
 
 ```ts
-import { connectAiWallet } from "@ai-wallet/connect-modal";
+import { connectAiWallet } from "@aipocket/connect-modal";
 
 const permission = await connectAiWallet({
   providerId: "provider_openai",
@@ -39,7 +41,7 @@ The extension shows an approval window. User can approve or reject and choose al
 ## Stream
 
 ```ts
-import { requestResponseStream } from "@ai-wallet/connect-modal";
+import { requestResponseStream } from "@aipocket/connect-modal";
 
 await requestResponseStream({
   sessionId: permission.sessionId,
@@ -61,7 +63,7 @@ await requestResponseStream({
 ## Disconnect
 
 ```ts
-import { disconnectAiWallet } from "@ai-wallet/connect-modal";
+import { disconnectAiWallet } from "@aipocket/connect-modal";
 
 await disconnectAiWallet(permission.sessionId);
 ```
@@ -101,4 +103,4 @@ Handle these cases in app UI:
 
 ## Security Boundary
 
-Do not ask users to paste provider API keys into your website. AI Wallet keeps keys inside extension storage and brokers requests after validating session scope.
+Do not ask users to paste provider API keys into your website. AIPocket keeps keys inside extension storage and brokers requests after validating session scope.

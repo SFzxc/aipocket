@@ -1,8 +1,8 @@
-# AI Wallet Architecture
+# AIPocket Architecture
 
 ## Overview
 
-AI Wallet is a Chrome MV3 extension that lets websites request approved AI model access without receiving the user's AI provider API keys.
+AIPocket is a Chrome MV3 extension that lets websites request approved AI model access without receiving the user's AI provider API keys.
 
 The website talks to `window.aiWallet`. The extension owns provider API key storage, provider configuration, approval, session validation, upstream API calls, and stream forwarding.
 
@@ -13,7 +13,7 @@ apps/extension
   Chrome MV3 extension. Stores providers, injects provider API, handles approval, validates sessions, brokers streams.
 
 apps/demo-web
-  Demo React website. Connects to AI Wallet and renders streamed response.
+  Demo React website. Connects to AIPocket and renders streamed response.
 
 packages/connect-modal
   Website-facing helper library. Calls window.aiWallet methods and exposes convenient connect/stream APIs.

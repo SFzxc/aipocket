@@ -1,4 +1,4 @@
-import { SUPPORTED_MODELS } from "@ai-wallet/protocol";
+import { SUPPORTED_MODELS } from "@aipocket/protocol";
 
 import { checkProvider, streamProvider } from "./provider-adapters";
 import { migrateStoredProviders, normalizeProviderInput, PROVIDERS_STORAGE_KEY, type ProviderConfig, type ProviderInput } from "./providers";

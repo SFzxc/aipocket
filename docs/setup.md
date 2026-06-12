@@ -36,7 +36,7 @@ npm run typecheck
 ## Build Extension
 
 ```sh
-npm run build -w @ai-wallet/extension
+npm run build -w @aipocket/extension
 ```
 
 Chrome extension output:
@@ -90,19 +90,19 @@ During `Check`, the extension calls the resolved `/models` endpoint first. If mo
 ## Run Demo Website
 
 ```sh
-npm run dev -w @ai-wallet/demo-web
+npm run dev -w @aipocket/demo-web
 ```
 
 Open shown localhost URL in Chrome where extension is installed.
 
 Expected MVP flow:
 
-1. Click `Connect AI Wallet`.
+1. Click `Connect AIPocket`.
 2. Approve requested model in extension approval UI.
 3. Keep default prompt `1+2=?`.
 4. Click `Send`.
 5. Output field streams answer, expected `3`.
-6. Click `Disconnect AI Wallet` to revoke current session and clear demo output.
+6. Click `Disconnect AIPocket` to revoke current session and clear demo output.
 
 Approved sessions last 30 minutes. They are stored in extension `chrome.storage.local` under `aiWalletSessions`, so `ai_getPermissions` and streaming can restore them after a MV3 service worker restart until expiration or revoke.
 
@@ -111,13 +111,13 @@ Approved sessions last 30 minutes. They are stored in extension `chrome.storage.
 Install package in a website app once package publishing/linking is configured:
 
 ```sh
-npm install @ai-wallet/connect-modal
+npm install @aipocket/connect-modal
 ```
 
 Use connect API:
 
 ```ts
-import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPermissions, requestResponseStream } from "@ai-wallet/connect-modal"
+import { connectAiWallet, disconnectAiWallet, getAiWalletModels, getAiWalletPermissions, requestResponseStream } from "@aipocket/connect-modal"
 
 const modelInfo = await getAiWalletModels()
 const existing = await getAiWalletPermissions()

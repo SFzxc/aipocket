@@ -118,7 +118,7 @@ flowchart TD
   Load --> Configure[Enter API key and optional endpoint]
   Configure --> Check[Click Check]
   Check --> Save[Save after success]
-  Save --> RunDemo[npm run dev -w @ai-wallet/demo-web]
+  Save --> RunDemo[npm run dev -w @aipocket/demo-web]
   RunDemo --> Connect[Click Connect AI Wallet]
   Connect --> Approve[Approve model]
   Approve --> Send[Send 1+2=?]

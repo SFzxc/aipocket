@@ -1,4 +1,4 @@
-import { validateStreamPermission, type StreamPermissionInput } from "@ai-wallet/protocol";
+import { validateStreamPermission, type StreamPermissionInput } from "@aipocket/protocol";
 
 export type AiWalletSession = {
   sessionId: string;

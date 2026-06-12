@@ -1,5 +1,5 @@
 {
-  "name": "@ai-wallet/connect-modal",
+  "name": "@aipocket/connect-modal",
   "version": "0.0.0",
   "type": "module",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@ai-wallet/protocol": "0.0.0"
+    "@aipocket/protocol": "0.0.0"
   },
   "devDependencies": {
     "typescript": "latest",

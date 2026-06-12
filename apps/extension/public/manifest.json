@@ -1,16 +1,28 @@
 {
   "manifest_version": 3,
-  "name": "AI Wallet MVP",
-  "version": "0.0.0",
-  "description": "Browser extension wallet for approved AI API access.",
-  "permissions": ["storage", "scripting", "tabs"],
-  "host_permissions": ["https://*/*", "http://localhost/*", "http://127.0.0.1/*"],
+  "name": "AIPocket",
+  "version": "0.1.0",
+  "description": "Connect apps to your AI providers without exposing keys.",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["https://*/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
   "action": {
-    "default_popup": "src/popup.html"
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
   },
   "content_scripts": [
     {

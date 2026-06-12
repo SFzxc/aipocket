@@ -37,7 +37,7 @@ window.addEventListener("message", (event) => {
         {
           target: "ai-wallet-page",
           streamId,
-          payload: { type: "error", error: "AI Wallet stream disconnected" }
+          payload: { type: "error", error: "AIPocket stream disconnected" }
         },
         window.location.origin
       );

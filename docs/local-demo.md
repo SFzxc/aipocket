@@ -1,6 +1,6 @@
 # Local Demo
 
-This guide runs AI Wallet and the demo website locally.
+This guide runs AIPocket and the demo website locally.
 
 Demo video: [`docs/assets/videos/demo.mov`](assets/videos/demo.mov)
 
@@ -26,7 +26,7 @@ npm run build
 
 ## 4. Configure Provider
 
-1. Open AI Wallet popup.
+1. Open AIPocket popup.
 2. Open `Providers`.
 3. Click `Add`.
 4. Choose provider type.
@@ -41,7 +41,7 @@ For OpenAI-compatible local demo, the default provider id is `provider_openai`.
 ## 5. Run Demo Website
 
 ```sh
-npm run dev -w @ai-wallet/demo-web
+npm run dev -w @aipocket/demo-web
 ```
 
 Open the local URL in the same Chrome profile where the extension is installed.
@@ -49,7 +49,7 @@ Open the local URL in the same Chrome profile where the extension is installed.
 ## 6. Try The Flow
 
 1. Confirm provider id is `provider_openai`.
-2. Click `Connect AI Wallet`.
+2. Click `Connect AIPocket`.
 3. Approve requested model in the extension approval window.
 4. Keep default prompt `1+2=?`.
 5. Click `Send`.

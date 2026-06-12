@@ -1,5 +1,5 @@
 {
-  "name": "@ai-wallet/demo-web",
+  "name": "@aipocket/demo-web",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -8,8 +8,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@ai-wallet/connect-modal": "0.0.0",
-    "@ai-wallet/protocol": "0.0.0",
+    "@aipocket/connect-modal": "0.0.0",
+    "@aipocket/protocol": "0.0.0",
     "@vitejs/plugin-react": "latest",
     "react": "latest",
     "react-dom": "latest",

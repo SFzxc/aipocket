@@ -5,3 +5,5 @@ dist/
 coverage/
 *.tsbuildinfo
 docs/superpowers
+.superpowers/
+apps/extension/release/

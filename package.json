@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "npm run build -w @ai-wallet/protocol && npm run build -w @ai-wallet/connect-modal && npm run build -w @ai-wallet/extension && npm run build -w @ai-wallet/demo-web",
+    "build": "npm run build -w @aipocket/protocol && npm run build -w @aipocket/connect-modal && npm run build -w @aipocket/extension && npm run build -w @aipocket/demo-web",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },

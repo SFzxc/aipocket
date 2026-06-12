@@ -1,4 +1,4 @@
-import { validateEndpointUrl, type ProviderType } from "@ai-wallet/protocol";
+import { validateEndpointUrl, type ProviderType } from "@aipocket/protocol";
 
 export type { ProviderType };
 

@@ -1,4 +1,4 @@
-import { validateEndpointUrl } from "@ai-wallet/protocol";
+import { validateEndpointUrl } from "@aipocket/protocol";
 
 import { streamResponsesApi, type ResponsesApiStreamEvent } from "./openai-compatible-stream";
 import { DEFAULT_PROVIDER_ENDPOINTS, type ProviderConfig } from "./providers";

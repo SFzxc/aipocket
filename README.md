@@ -1,14 +1,14 @@
-# AI Wallet
+# AIPocket
 
-AI Wallet is a Chrome MV3 extension that lets websites request user-approved AI model access without receiving the user's API keys.
+AIPocket is a Chrome MV3 AI access wallet that lets websites request user-approved model access without receiving your provider API keys.
 
-It works like a wallet for AI API access: the extension stores provider credentials, websites request scoped permission, and approved sessions can stream model output through the extension.
+It keeps provider credentials in the extension, lets websites request scoped permission, and streams approved model output back through the extension.
 
 ## Screenshots
 
 | Wallet | Connection approval |
 | --- | --- |
-| ![AI Wallet home](docs/assets/screenshots/wallet-home.svg) | ![Connection approval](docs/assets/screenshots/connect-approval.svg) |
+| ![AIPocket home](docs/assets/screenshots/wallet-home.svg) | ![Connection approval](docs/assets/screenshots/connect-approval.svg) |
 
 | Provider management | Demo app |
 | --- | --- |
@@ -18,7 +18,7 @@ It works like a wallet for AI API access: the extension stores provider credenti
 
 Many AI-powered websites ask users to paste provider API keys directly into the web app. That gives the website long-lived credentials it does not need.
 
-AI Wallet moves API keys into a browser extension. Websites receive only scoped, revocable access to approved providers and models.
+AIPocket moves API keys into a browser extension. Websites receive only scoped, revocable access to approved providers and models.
 
 ## Features
 
@@ -27,7 +27,7 @@ AI Wallet moves API keys into a browser extension. Websites receive only scoped,
 - Approve website access per origin, provider, model list, and session.
 - Enforce optional per-session request limits.
 - Stream model output back to websites without exposing provider keys.
-- Use `@ai-wallet/connect-modal` to integrate with web apps.
+- Use `@aipocket/connect-modal` to integrate with web apps.
 
 ## Quick Start
 
@@ -57,8 +57,10 @@ Load `apps/extension/dist` in Chrome:
 
 ## Developer Integration
 
+AIPocket uses the `aiWallet` provider protocol internally for website integrations.
+
 ```ts
-import { connectAiWallet, requestResponseStream } from "@ai-wallet/connect-modal";
+import { connectAiWallet, requestResponseStream } from "@aipocket/connect-modal";
 
 const permission = await connectAiWallet({
   providerId: "provider_openai",
@@ -82,10 +84,10 @@ See `docs/integration.md` for full integration details.
 ## Local Demo
 
 ```sh
-npm run dev -w @ai-wallet/demo-web
+npm run dev -w @aipocket/demo-web
 ```
 
-Open the local URL in the same Chrome profile where AI Wallet is installed. Connect the demo, approve access in the extension, keep the prompt `1+2=?`, and send. Expected output: `3`.
+Open the local URL in the same Chrome profile where AIPocket is installed. Connect the demo, approve access in the extension, keep the prompt `1+2=?`, and send. Expected output: `3`.
 
 Demo video: [`docs/assets/videos/demo.mov`](docs/assets/videos/demo.mov)
 
@@ -121,7 +123,7 @@ Current MVP protections:
 
 ## Status
 
-AI Wallet is an MVP/prototype moving toward public release. It is not yet published to the Chrome Web Store.
+AIPocket is preparing for a public Chrome Web Store v0.1.0 release.
 
 ## Roadmap
 

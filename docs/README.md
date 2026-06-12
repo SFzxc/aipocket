@@ -1,4 +1,4 @@
-# AI Wallet Docs
+# AIPocket Docs
 
 - `setup.md`: build, install, and troubleshooting guide.
 - `local-demo.md`: end-to-end local demo walkthrough.
