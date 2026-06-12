@@ -83,6 +83,8 @@ See `docs/integration.md` for full integration details.
 
 ## Local Demo
 
+Live demo: https://dist-red-nine-94.vercel.app
+
 ```sh
 npm run dev -w @aipocket/demo-web
 ```
