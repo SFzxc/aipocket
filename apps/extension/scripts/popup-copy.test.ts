@@ -29,6 +29,7 @@ describe("popup copy", () => {
 
   test("providers view keeps list first and debug collapsed", () => {
     expect(popupHtml).not.toContain("provider-summary-strip");
+    expect(popupHtml).not.toContain("wallet-section provider-management-section");
     expect(popupHtml.indexOf("id=\"providers-list\"")).toBeLessThan(popupHtml.indexOf("id=\"provider-form-slot-top\""));
     expect(popupHtml).toContain("<summary>Debug</summary>");
   });

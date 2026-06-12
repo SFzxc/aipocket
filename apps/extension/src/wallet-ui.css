@@ -322,6 +322,11 @@ summary:focus-visible {
   gap: 10px;
 }
 
+.provider-form-slot {
+  display: grid;
+  gap: 8px;
+}
+
 .provider-card-stack,
 .connected-sites {
   display: grid;
@@ -563,6 +568,10 @@ summary:focus-visible {
   color: #5f646b;
   font-size: 12px;
   padding: 2px 0;
+}
+
+.debug-section {
+  padding: 0 2px;
 }
 
 .diagnostics summary {
